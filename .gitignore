@@ -59,3 +59,16 @@ msbuild.wrn
 
 # Visual Studio
 .vs/
+
+# IDE - JetBrains
+.idea/
+*.iml
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+*.swp
+*.swo
+*~

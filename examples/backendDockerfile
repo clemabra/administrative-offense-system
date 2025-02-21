@@ -1,0 +1,53 @@
+﻿#.NET SDK-Image für Build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Kopiere die Projektdatei und führe dotnet restore aus
+COPY ["src.csproj", "./"]
+RUN dotnet restore "src.csproj"
+
+# Installiere das dotnet-ef Tool
+RUN dotnet tool install --global dotnet-ef
+
+# Füge das Tool-Verzeichnis zum PATH hinzu
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Kopiere den Rest des Codes
+COPY . .
+
+# Erstelle das Verzeichnis für die Datenbank und setze Berechtigungen
+RUN mkdir -p /src/Data
+RUN chmod -R 777 /src/Data
+
+# Setze das Arbeitsverzeichnis für Migrationen
+WORKDIR /src
+
+# Führe die Datenbankmigrationen aus
+RUN dotnet ef database update --context OffenseDbContext
+RUN dotnet ef database update --context SSOTokenDbContext
+
+# Veröffentliche die Anwendung
+RUN dotnet publish "src.csproj" -c Release -o /app/publish
+
+# Verwende das ASP.NET Core Runtime-Image für das finale Image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+
+# Installiere die benötigten LDAP-Bibliotheken
+RUN apt-get update && apt-get install -y libldap-2.5-0
+
+# Kopiere die veröffentlichten Dateien
+COPY --from=build /app/publish .
+
+# Erstelle das Data-Verzeichnis und setze einen symbolischen Link
+RUN mkdir -p /app/Data
+RUN ln -s /app/Data ./Data
+
+# Exponiere die Ports, die von der Anwendung verwendet werden
+EXPOSE 5000 7042 7254
+
+# Setze die Umgebungsvariable für ASP.NET Core URLs
+ENV ASPNETCORE_URLS="http://+:5000;http://+:7042;http://+:7254"
+
+# Setze den Einstiegspunkt für die Anwendung
+ENTRYPOINT ["dotnet", "src.dll"]

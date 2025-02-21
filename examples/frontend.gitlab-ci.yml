@@ -1,0 +1,32 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build-project:
+  stage: build
+  script:
+    - cd App
+    - npm install
+    - npm run build
+  image: node:22-alpine
+  artifacts:
+    paths:
+      - App/dist/
+
+test-job1:
+  stage: test
+  script:
+    - echo "This job tests something"
+
+deploy-docker-image:
+  stage: deploy
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - echo Writing docker image to registry $CI_REGISTRY_IMAGE
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/App/dockerfile"
+      --destination ${CI_REGISTRY_IMAGE}:latest

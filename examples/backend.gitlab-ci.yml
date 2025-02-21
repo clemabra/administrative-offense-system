@@ -1,0 +1,38 @@
+stages:
+  - build
+  - test
+  - deploy
+
+# Build Job .NET-Backend
+build-backend:
+  stage: build
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  script:
+    - echo "Building .NET project"
+    - dotnet restore
+    - dotnet build --configuration Release
+    - dotnet tool install --global dotnet-ef
+    - export PATH="$PATH:$HOME/.dotnet/tools"
+    - cd src
+    - mkdir -p ./Data
+    - chmod -R 777 ./Data
+    - dotnet ef database update --context OffenseDbContext --project src.csproj
+    - dotnet ef database update --context SSOTokenDbContext --project src.csproj
+    - dotnet publish --configuration Release -o /app/publish
+  artifacts:
+    paths:
+      - /app/publish/
+
+# Deployment Job .NET-Backend
+deploy-docker-image:
+  stage: deploy
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - echo "Building and pushing Docker image to registry"
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}/src"
+      --dockerfile "${CI_PROJECT_DIR}/src/Dockerfile"
+      --destination ${CI_REGISTRY_IMAGE}:latest
+  needs: ["build-backend"]

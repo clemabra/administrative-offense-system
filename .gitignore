@@ -10,6 +10,8 @@
 .env
 .env.local
 .env.*.local
+.env.production
+.env.development
 
 # OS generated files
 .DS_Store

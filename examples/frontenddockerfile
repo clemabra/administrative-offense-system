@@ -1,0 +1,12 @@
+# Apache DOcker Image laden
+FROM httpd:2.4
+
+# Dateien der Seite kopieren
+COPY ./App/dist/ /usr/local/apache2/htdocs/
+
+# Leserechte für Nginx
+RUN chmod -R 755 /usr/local/apache2/htdocs/
+
+# Nginx Konfiguration kopieren
+COPY ./App/custom-httpd.conf /usr/local/apache2/conf/httpd.conf
+

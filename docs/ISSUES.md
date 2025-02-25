@@ -24,13 +24,25 @@ Improvements needed for CSV file import functionality for notifications accordin
    - **Priority:** Low
    - **Status:** Open
 
-### Technical Notes
-- Issue occurs when matching records by:
-  - Arrears date
-  - Name with birth date
-- First case processes correctly
-- Second case: Name difference handling needs improvement
-- Need to implement proper sequential number checking
+   ### Technical Notes
+   - Issue occurs when matching records by:
+     - Arrears date
+     - Name with birth date
+   - First case processes correctly
+   - Second case: Name difference handling needs improvement
+   - Need to implement proper sequential number checking
+
+3. CSV Field Validation
+   - Missing validation for reference number field (no error message when empty)
+   - Missing validation for postal code field
+   - All validations from manual entry form should be applied to CSV import:
+     - Date fields (implemented)
+     - Follow-up notification field (implemented)
+     - Form of address field (implemented)
+     - Postal code field (missing)
+     - Amount fields with exactly 2 decimal places (missing)
+   - **Priority:** Medium
+   - **Status:** Open
 
 ## Automatic File Number Generation
 
@@ -58,6 +70,17 @@ Fields needing validation messages:
 - **Priority:** Low
 - **Status:** Open
 
+## Form Field Requirements
+
+### Description
+Review and adjust mandatory field requirements in edit mode.
+
+### Details
+- "End of delay" field should not be mandatory in backend logic when editing
+- Need to verify if this applies to initial capture form as well
+- **Priority:** Medium
+- **Status:** Open
+
 ## Contributing
 
 If you'd like to help resolve these issues:
@@ -66,4 +89,4 @@ If you'd like to help resolve these issues:
 3. Fork the repository and create a branch
 4. Submit a pull request with your solution
 
-For more details, see our [Contributing Guidelines](CONTRIBUTING.md). 
+For more details, see our [Contributing Guidelines](CONTRIBUTING.md).

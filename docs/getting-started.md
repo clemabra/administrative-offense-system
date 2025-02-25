@@ -42,11 +42,6 @@ The frontend will start at http://localhost:8080
 - Test data seeding
 - Database management
 
-### Testing
-- Running unit tests
-- Integration tests
-- E2E testing
-
 ## First Steps
 1. Create admin account
 2. Configure basic settings

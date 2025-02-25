@@ -52,6 +52,38 @@ This document outlines potential future enhancements and features for OPAS.
   - Hearing forms
   - Warning letters
 
+## 6. Testing Infrastructure
+
+### Test Coverage
+- Implement comprehensive unit tests for backend services
+- Add integration tests for API endpoints
+- Set up end-to-end testing for critical user workflows
+
+### Test Automation
+- Automate test execution in CI/CD pipeline
+- Add test reporting and coverage metrics
+- Implement regression test suite
+
+## 7. Additional Security Features
+
+### Authentication
+- Add Single Sign-On (SSO) integration option
+- Implement basic audit logging for user actions
+
+### Data Management
+- Improve backup and recovery processes
+- Add data export functionality
+- Basic data anonymization for DSGVO/GDPR compliance
+
+## 8. DSGVO/GDPR Compliance
+
+### Data Protection Features
+- Implementation of data retention and deletion concept
+- Creation of privacy policy for users
+- Documentation of data processing activities
+- Function for data subject access requests
+- Data portability implementation
+
 ## Implementation Priority
 
 These features are listed in order of potential impact and implementation complexity. Each feature should be evaluated based on:

@@ -21,6 +21,11 @@ Improvements needed for CSV file import functionality for notifications accordin
    - Line breaks in data fields trigger generic error messages
    - Files without BOM need proper rejection handling
    - Unpaired text qualifiers in last column need proper validation
+   - Missing validation for empty reference number configuration:
+     - When file number points to empty field in reference number table
+     - Currently shows "error" instead of proper error message
+     - Should validate reference number configuration before import
+     - Should reject import if reference numbers are not properly configured
    - **Priority:** Low
    - **Status:** Open
 

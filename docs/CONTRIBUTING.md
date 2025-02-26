@@ -64,4 +64,22 @@ We welcome your contributions to OPAS!
 
 ## License
 
-By submitting code contributions, you agree that your contributions will be licensed under the GPL v3. 
+By submitting code contributions, you agree that your contributions will be licensed under the GPL v3.
+
+## Git Workflow
+
+1. Create a new branch for your feature
+```bash
+git checkout -b feature/your-feature-name
+```
+
+2. Make your changes and commit
+```bash
+git add .
+git commit -m "Description of changes"
+```
+
+3. Push changes and create pull request
+```bash
+git push origin feature/your-feature-name
+``` 

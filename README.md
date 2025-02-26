@@ -53,6 +53,24 @@ OPAS streamlines the process of managing cases where individuals have fallen beh
 - Backend: ASP.NET Core
 - Database: SQLite
 
+## Project Structure
+```
+opas/
+├── backend/               # .NET Core backend
+│   ├── src/              # Source files
+│   │   ├── Controllers/  # API endpoints
+│   │   ├── Models/       # Data models
+│   │   └── Services/     # Business logic
+│   └── tests/            # Unit tests
+└── frontend/             # Vue.js frontend
+    ├── src/
+    │   ├── components/   # Vue components
+    │   ├── views/        # Page components
+    │   ├── router/       # Route definitions
+    │   └── assets/       # Static files
+    └── public/           # Public assets
+```
+
 ## Development Setup
 
 ### Recommended VS Code Extensions
@@ -94,6 +112,11 @@ The frontend will start at http://localhost:8080
 - Use Swagger UI to seed test data (optional):
   1. Navigate to http://localhost:5000/swagger
   2. Use the POST /api/Seeder/seed endpoint
+
+### Basic Configuration
+- Backend: Configure connection strings in `appsettings.json`
+- Frontend: Set API endpoints in `.env` file
+- For detailed deployment and configuration options, see [Deployment Guide](docs/deployment.md)
 
 ## Documentation
 
